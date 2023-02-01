@@ -5,7 +5,7 @@ pipeline {
         EC2INSTANCEDEV = "ec2-user@3.237.69.190"
         REGISTRY = "roxsross12"
         APPNAME  = "node-app"
-        NAME     = "node-app-develop"
+        IMAGE     = "node-app-develop"
         VERSION  = "1.0.0"
         DOCKER_HUB_LOGIN = credentials('docker-hub')
     }
@@ -47,7 +47,7 @@ pipeline {
         stage('Deploy to Develop') {
             steps {
                 echo 'DEPLOY'
-                sh ("sed -i -- 's/NAME/$NAME/g' docker-compose.yaml")
+                sh ("sed -i -- 's/IMAGE/$IMAGE/g' docker-compose.yaml")
                 sh ("sed -i -- 's/REGISTRY/$REGISTRY/g' docker-compose.yaml")
                 sh ("sed -i -- 's/APPNAME/$APPNAME/g' docker-compose.yaml")
                 sh ("sed -i -- 's/VERSION/$VERSION/g' docker-compose.yaml")
