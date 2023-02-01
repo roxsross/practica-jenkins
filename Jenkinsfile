@@ -14,7 +14,7 @@ pipeline {
             agent{
                 docker {
                     image 'node:erbium-alpine'
-                    arg '-u root:root'
+                    args '-u root:root'
                 }
             }
             steps {
