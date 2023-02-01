@@ -46,7 +46,15 @@ pipeline {
         }
         stage('Deploy to Develop') {
             steps {
-                echo 'develop'
+                echo 'DEPLOY'
+                sh ("sed -i -- 's/NAME/$NAME/g' docker-compose.yaml")
+                sh ("sed -i -- 's/REGISTRY/$REGISTRY/g' docker-compose.yaml")
+                sh ("sed -i -- 's/APPNAME/$APPNAME/g' docker-compose.yaml")
+                sh ("sed -i -- 's/VERSION/$VERSION/g' docker-compose.yaml")
+                sshagent(['ssh-server']){
+                    sh 'scp -o StrictHostKeyChecking=no docker-compose.yaml $EC2INSTANCEDEV:/home/ec2-user'
+                    sh 'ssh $EC2INSTANCEDEV docker-compose up -d'
+                }
             }
         }
         stage('Notificacion') {
