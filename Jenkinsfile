@@ -59,6 +59,7 @@ pipeline {
         }
         stage('Notificacion') {
             steps {
+                sh 'chmod +x ./automation/telegram.sh'
                 sh './automation/telegram.sh'
             }
         }
