@@ -59,7 +59,7 @@ pipeline {
         }
         stage('Notificacion') {
             steps {
-                echo 'telegram/slack/discord/team'
+                sh './automation/telegram.sh'
             }
         }
     }
